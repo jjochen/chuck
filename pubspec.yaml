@@ -1,0 +1,30 @@
+name: chuck
+description: "A new Flutter project."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.19.0"
+
+dependencies:
+  bloc: any
+  cupertino_icons: any
+  dio: any
+  equatable: any
+  flutter:
+    sdk: flutter
+  flutter_bloc: any
+  flutter_localizations:
+    sdk: flutter
+
+dev_dependencies:
+  bloc_test: any
+  flutter_test:
+    sdk: flutter
+  mocktail: any
+  test: any
+  very_good_analysis: any
+
+flutter:
+  uses-material-design: true

@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('Joke', () {
     test('should be able to create a Joke instance', () {
-      // Arrange
       const joke = Joke(
         iconUrl: 'iconUrl',
         id: 'id',
@@ -12,14 +11,10 @@ void main() {
         value: 'value',
       );
 
-      // Act
-
-      // Assert
       expect(joke, isA<Joke>());
     });
 
     test('should return the correct values', () {
-      // Arrange
       const joke = Joke(
         iconUrl: 'iconUrl',
         id: 'id',
@@ -27,13 +22,95 @@ void main() {
         value: 'value',
       );
 
-      // Act
-
-      // Assert
       expect(joke.iconUrl, 'iconUrl');
       expect(joke.id, 'id');
       expect(joke.url, 'url');
       expect(joke.value, 'value');
+    });
+
+    test('should support value equality', () {
+      expect(
+        const Joke(
+          iconUrl: 'iconUrl',
+          id: 'id',
+          url: 'url',
+          value: 'value',
+        ),
+        const Joke(
+          iconUrl: 'iconUrl',
+          id: 'id',
+          url: 'url',
+          value: 'value',
+        ),
+      );
+
+      expect(
+        const Joke(
+          iconUrl: 'iconUrl',
+          id: 'id',
+          url: 'url',
+          value: 'value',
+        ),
+        isNot(
+          const Joke(
+            iconUrl: 'iconUrl2',
+            id: 'id',
+            url: 'url',
+            value: 'value',
+          ),
+        ),
+      );
+
+      expect(
+        const Joke(
+          iconUrl: 'iconUrl',
+          id: 'id',
+          url: 'url',
+          value: 'value',
+        ),
+        isNot(
+          const Joke(
+            iconUrl: 'iconUrl',
+            id: 'id2',
+            url: 'url',
+            value: 'value',
+          ),
+        ),
+      );
+
+      expect(
+        const Joke(
+          iconUrl: 'iconUrl',
+          id: 'id',
+          url: 'url',
+          value: 'value',
+        ),
+        isNot(
+          const Joke(
+            iconUrl: 'iconUrl',
+            id: 'id',
+            url: 'url2',
+            value: 'value',
+          ),
+        ),
+      );
+
+      expect(
+        const Joke(
+          iconUrl: 'iconUrl',
+          id: 'id',
+          url: 'url',
+          value: 'value',
+        ),
+        isNot(
+          const Joke(
+            iconUrl: 'iconUrl',
+            id: 'id',
+            url: 'url',
+            value: 'value2',
+          ),
+        ),
+      );
     });
   });
 }

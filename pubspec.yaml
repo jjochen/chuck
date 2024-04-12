@@ -5,27 +5,23 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
-  flutter: ">=3.19.1"
+  flutter: ">=3.19.0"
 
 dependencies:
   bloc: any
   cupertino_icons: any
+  dio: any
   equatable: any
   flutter:
     sdk: flutter
   flutter_bloc: any
   flutter_localizations:
     sdk: flutter
-  http: any
-  intl: any
-  meta: any
-  shared_preferences: any
 
 dev_dependencies:
   bloc_test: any
   flutter_test:
     sdk: flutter
-  mockingjay: any
   mocktail: any
   test: any
   very_good_analysis: any

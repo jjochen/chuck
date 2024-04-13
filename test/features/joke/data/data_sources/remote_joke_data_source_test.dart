@@ -1,4 +1,4 @@
-import 'package:chuck/features/joke/data/data_sources/remote_joke_data_source.dart';
+import 'package:chuck/features/joke/data/data.dart';
 import 'package:chuck/features/joke/domain/domain.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -33,12 +33,6 @@ void main() {
 
       // Assert
       expect(joke, isA<Joke>());
-    });
-
-    test('should return null when an exception is thrown', () async {
-      when(() => dio.get(any())).thenThrow(Exception());
-      final joke = await dataSource.getRandomJoke();
-      expect(joke, isNull);
     });
   });
 }

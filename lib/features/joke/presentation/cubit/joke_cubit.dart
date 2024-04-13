@@ -10,11 +10,12 @@ class JokeCubit extends Cubit<JokeState> {
 
   Future<void> getRandomJoke() async {
     emit(const JokeLoading());
-    try {
-      final joke = await getRandomJokeUseCase();
+    final result = await getRandomJokeUseCase();
+    final joke = result.value;
+    if (result.isSuccess && joke != null) {
       emit(JokeLoaded(joke));
-    } catch (e) {
-      emit(const JokeError('Failed to load joke'));
+    } else {
+      emit(const JokeError('Failed to get joke'));
     }
   }
 }

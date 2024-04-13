@@ -19,12 +19,12 @@ void main() {
 
     testWidgets('returns a joke', (tester) async {
       when(() => jokeRepository.getRandomJoke()).thenAnswer(
-        (_) async => testJoke,
+        (_) async => testJokeResult,
       );
 
-      final joke = await getRandomJoke();
+      final result = await getRandomJoke();
 
-      expect(joke, testJoke);
+      expect(result.value, testJoke);
     });
   });
 }

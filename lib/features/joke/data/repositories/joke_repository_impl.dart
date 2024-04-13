@@ -1,3 +1,4 @@
+import 'package:chuck/core/error_handling/error_handling.dart';
 import 'package:chuck/features/joke/data/data.dart';
 import 'package:chuck/features/joke/domain/domain.dart';
 
@@ -9,7 +10,7 @@ class JokeRepositoryImpl implements JokeRepository {
   final RemoteJokeDataSource remoteJokeDataSource;
 
   @override
-  Future<Joke> getRandomJoke() {
+  Future<Result<Joke>> getRandomJoke() {
     return remoteJokeDataSource.getRandomJoke();
   }
 }

@@ -1,9 +1,10 @@
+import 'package:chuck/core/core.dart';
 import 'package:chuck/features/joke/data/data.dart';
 import 'package:chuck/features/joke/domain/domain.dart';
 import 'package:dio/dio.dart';
 
 abstract class RemoteJokeDataSource {
-  Future<Joke> getRandomJoke();
+  Future<Result<Joke>> getRandomJoke();
 }
 
 class RemoteJokeDataSourceImpl implements RemoteJokeDataSource {
@@ -14,10 +15,13 @@ class RemoteJokeDataSourceImpl implements RemoteJokeDataSource {
   final Dio dio;
 
   @override
-  Future<JokeModel> getRandomJoke() async {
-    // TODO(jjochen): improve error handling
-    final response = await dio.get('https://api.chucknorris.io/jokes/random');
-    final joke = JokeModel.fromJson(response.data as Map<String, dynamic>);
-    return joke;
+  Future<Result<JokeModel>> getRandomJoke() async {
+    try {
+      final response = await dio.get('https://api.chucknorris.io/jokes/random');
+      final joke = JokeModel.fromJson(response.data as Map<String, dynamic>);
+      return Result.success(joke);
+    } on Exception catch (exception) {
+      return Result.failure(exception);
+    }
   }
 }

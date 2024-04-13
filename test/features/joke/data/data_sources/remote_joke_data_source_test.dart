@@ -1,8 +1,9 @@
 import 'package:chuck/features/joke/data/data.dart';
-import 'package:chuck/features/joke/domain/domain.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+import '../../../../fixtures/fixtures.dart';
 
 class MockDio extends Mock implements Dio {}
 
@@ -16,7 +17,7 @@ void main() {
       dataSource = RemoteJokeDataSourceImpl(dio: dio);
     });
 
-    test('should return a joke', () async {
+    test('should return a joke on success', () async {
       when(() => dio.get(any())).thenAnswer(
         (_) async => Response(
           data: {
@@ -29,10 +30,23 @@ void main() {
         ),
       );
       // Act
-      final joke = await dataSource.getRandomJoke();
+      final result = await dataSource.getRandomJoke();
 
       // Assert
-      expect(joke, isA<Joke>());
+      expect(result.isSuccess, isTrue);
+      expect(result.value, testJokeModel);
+      expect(result.exception, isNull);
+    });
+
+    test('should return a server failure on failure', () async {
+      when(() => dio.get(any())).thenThrow(Exception());
+      // Act
+      final result = await dataSource.getRandomJoke();
+
+      // Assert
+      expect(result.isSuccess, isFalse);
+      expect(result.value, isNull);
+      expect(result.exception, isA<Exception>());
     });
   });
 }

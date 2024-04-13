@@ -25,7 +25,7 @@ void main() {
       blocTest<JokeCubit, JokeState>(
         'emits [JokeLoading, JokeLoaded] when GetRandomJoke succeeds',
         setUp: () {
-          when(() => getRandomJoke()).thenAnswer((_) async => testJoke);
+          when(() => getRandomJoke()).thenAnswer((_) async => testJokeResult);
         },
         build: () => jokeCubit,
         act: (cubit) => cubit.getRandomJoke(),
@@ -38,10 +38,11 @@ void main() {
 
       blocTest<JokeCubit, JokeState>(
         'emits [JokeLoading, JokeError] when GetRandomJoke fails',
-        build: () {
-          when(() => getRandomJoke()).thenThrow(Exception());
-          return jokeCubit;
+        setUp: () {
+          when(() => getRandomJoke())
+              .thenAnswer((_) async => testExceptionResult);
         },
+        build: () => jokeCubit,
         act: (cubit) => cubit.getRandomJoke(),
         expect: () => <Matcher>[
           isA<JokeLoading>(),

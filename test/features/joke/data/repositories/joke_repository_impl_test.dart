@@ -21,11 +21,11 @@ void main() {
 
     test('should fetch a random joke', () async {
       when(() => remoteJokeDataSource.getRandomJoke()).thenAnswer(
-        (_) async => testJoke,
+        (_) async => testJokeResult,
       );
 
-      final joke = await jokeRepository.getRandomJoke();
-      expect(joke, testJoke);
+      final result = await jokeRepository.getRandomJoke();
+      expect(result.value, testJoke);
     });
   });
 }

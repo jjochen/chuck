@@ -29,6 +29,9 @@ jobs:
       - name: Print Flutter/Dart version
         run: flutter --version
 
+      - name: Install dependencies
+        run: flutter pub get
+
       - name: Verify formatting
         run: dart format --output=none --set-exit-if-changed .
 

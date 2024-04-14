@@ -47,6 +47,7 @@ class JokeDetailPageContent extends StatelessWidget {
                 child: Text(
                   state.message,
                   style: Theme.of(context).textTheme.bodyLarge,
+                  textAlign: TextAlign.center,
                 ),
               );
             } else {

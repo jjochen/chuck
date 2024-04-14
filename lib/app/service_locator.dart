@@ -7,7 +7,9 @@ final getIt = GetIt.instance;
 class ServiceLocator {
   static void setup() {
     getIt
-      ..registerLazySingleton<Dio>(Dio.new)
+      ..registerLazySingleton<Dio>(
+        Dio.new,
+      )
       ..registerLazySingleton<RemoteJokeDataSource>(
         () => RemoteJokeDataSourceImpl(dio: getIt()),
       )

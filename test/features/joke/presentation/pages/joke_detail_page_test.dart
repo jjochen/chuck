@@ -9,11 +9,8 @@ import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../fixtures/fixtures.dart';
+import '../../../../mocks/mocktail.dart';
 import '../../../../utils.dart';
-
-class MockGetRandomJoke extends Mock implements GetRandomJoke {}
-
-class MockJokeCubit extends MockCubit<JokeState> implements JokeCubit {}
 
 void main() {
   group('JokeDetailPage', () {

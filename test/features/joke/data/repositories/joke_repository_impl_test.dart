@@ -4,8 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../../../fixtures/fixtures.dart';
-
-class RemoteJokeDataSourceMock extends Mock implements RemoteJokeDataSource {}
+import '../../../../mocks/mocktail.dart';
 
 void main() {
   group('JokeRepositoryImpl', () {
@@ -13,7 +12,7 @@ void main() {
     late RemoteJokeDataSource remoteJokeDataSource;
 
     setUp(() {
-      remoteJokeDataSource = RemoteJokeDataSourceMock();
+      remoteJokeDataSource = MockRemoteJokeDataSource();
       jokeRepository = JokeRepositoryImpl(
         remoteJokeDataSource: remoteJokeDataSource,
       );

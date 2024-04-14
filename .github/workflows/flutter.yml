@@ -37,10 +37,7 @@ jobs:
         run: flutter test --test-randomize-ordering-seed=random --coverage
 
       - name: Check test coverage
-        run: |
-          COVERAGE_THRESHOLD=100
-          COVERAGE_REPORT=$(cat coverage/lcov.info | grep -oP '^DA:' | wc -l)
-          if [[ $COVERAGE_REPORT -lt $COVERAGE_THRESHOLD ]]; then
-            echo "Test coverage is below the threshold of $COVERAGE_THRESHOLD%"
-            exit 1
-          fi
+        uses: VeryGoodOpenSource/very_good_coverage@v2
+        with:
+          path: '/coverage/lcov.info'
+          min_coverage: 100

@@ -17,6 +17,7 @@ dependencies:
   flutter_bloc: any
   flutter_localizations:
     sdk: flutter
+  get_it: any
 
 dev_dependencies:
   bloc_test: any

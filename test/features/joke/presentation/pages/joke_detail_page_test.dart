@@ -5,6 +5,7 @@ import 'package:chuck/features/joke/joke.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../fixtures/fixtures.dart';
@@ -21,14 +22,16 @@ void main() {
     setUp(() {
       getRandomJoke = MockGetRandomJoke();
       when(() => getRandomJoke()).thenAnswer((_) async => testJokeResult);
+      GetIt.instance.registerLazySingleton<GetRandomJoke>(() => getRandomJoke);
+    });
+
+    tearDown(() {
+      GetIt.instance.reset();
     });
 
     testWidgets('should render joke detail page content',
         (WidgetTester tester) async {
-      final widget = RepositoryProvider(
-        create: (context) => getRandomJoke,
-        child: JokeDetailPage(),
-      );
+      final widget = JokeDetailPage();
 
       await tester.pumpMaterialApp(widget);
 
@@ -37,10 +40,7 @@ void main() {
 
     testWidgets('should call getRandomJoke when created',
         (WidgetTester tester) async {
-      final widget = RepositoryProvider(
-        create: (context) => getRandomJoke,
-        child: JokeDetailPage(),
-      );
+      final widget = JokeDetailPage();
 
       await tester.pumpMaterialApp(widget);
 

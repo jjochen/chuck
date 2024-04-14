@@ -1,5 +1,5 @@
-import 'package:chuck/features/joke/domain/domain.dart';
 import 'package:chuck/features/joke/presentation/presentation.dart';
+import 'package:chuck/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,9 +11,8 @@ class JokeDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => JokeCubit(
-        getRandomJokeUseCase: context.read<GetRandomJoke>(),
-      )..getRandomJoke(),
+      create: (context) =>
+          JokeCubit(getRandomJokeUseCase: getIt())..getRandomJoke(),
       child: const JokeDetailPageContent(),
     );
   }

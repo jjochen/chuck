@@ -4,8 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../fixtures/fixtures.dart';
-
-class JokeRepositoryMock extends Mock implements JokeRepository {}
+import '../../../../mocks/mocktail.dart';
 
 void main() {
   group('GetRandomJoke', () {
@@ -13,7 +12,7 @@ void main() {
     late JokeRepository jokeRepository;
 
     setUp(() {
-      jokeRepository = JokeRepositoryMock();
+      jokeRepository = MockJokeRepository();
       getRandomJoke = GetRandomJoke(repository: jokeRepository);
     });
 

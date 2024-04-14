@@ -1,22 +1,18 @@
-import 'package:chuck/features/joke/domain/domain.dart';
+import 'package:chuck/app/service_locator.dart';
 import 'package:chuck/features/joke/presentation/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class JokeDetailPage extends StatelessWidget {
   const JokeDetailPage({
-    required this.getRandomJoke,
     super.key,
   });
-
-  final GetRandomJoke getRandomJoke;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => JokeCubit(
-        getRandomJokeUseCase: getRandomJoke,
-      )..getRandomJoke(),
+      create: (context) =>
+          JokeCubit(getRandomJokeUseCase: getIt())..getRandomJoke(),
       child: const JokeDetailPageContent(),
     );
   }

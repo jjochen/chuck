@@ -5,14 +5,12 @@ import 'package:chuck/features/joke/joke.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../fixtures/fixtures.dart';
+import '../../../../mocks/mocktail.dart';
 import '../../../../utils.dart';
-
-class MockGetRandomJoke extends Mock implements GetRandomJoke {}
-
-class MockJokeCubit extends MockCubit<JokeState> implements JokeCubit {}
 
 void main() {
   group('JokeDetailPage', () {
@@ -21,11 +19,16 @@ void main() {
     setUp(() {
       getRandomJoke = MockGetRandomJoke();
       when(() => getRandomJoke()).thenAnswer((_) async => testJokeResult);
+      GetIt.instance.registerLazySingleton<GetRandomJoke>(() => getRandomJoke);
+    });
+
+    tearDown(() {
+      GetIt.instance.reset();
     });
 
     testWidgets('should render joke detail page content',
         (WidgetTester tester) async {
-      final widget = JokeDetailPage(getRandomJoke: getRandomJoke);
+      final widget = JokeDetailPage();
 
       await tester.pumpMaterialApp(widget);
 
@@ -34,7 +37,7 @@ void main() {
 
     testWidgets('should call getRandomJoke when created',
         (WidgetTester tester) async {
-      final widget = JokeDetailPage(getRandomJoke: getRandomJoke);
+      final widget = JokeDetailPage();
 
       await tester.pumpMaterialApp(widget);
 

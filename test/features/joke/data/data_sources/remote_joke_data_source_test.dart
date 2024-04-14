@@ -4,8 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../fixtures/fixtures.dart';
-
-class MockDio extends Mock implements Dio {}
+import '../../../../mocks/mocktail.dart';
 
 void main() {
   group('RemoteJokeDataSourceImpl', () {

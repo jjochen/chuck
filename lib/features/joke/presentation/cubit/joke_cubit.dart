@@ -15,7 +15,12 @@ class JokeCubit extends Cubit<JokeState> {
     if (result.isSuccess && joke != null) {
       emit(JokeLoaded(joke));
     } else {
-      emit(const JokeError('Failed to get joke'));
+      emit(
+        const JokeError(
+          'Oops! The connection was kicked out by Chuck Norris.\n'
+          'Try reconnecting!',
+        ),
+      );
     }
   }
 }

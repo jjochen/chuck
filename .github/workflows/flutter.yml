@@ -1,9 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Dart
+name: Flutter
 
 on:
   push:
@@ -16,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Configure fvm
         uses: kuhnroyal/flutter-fvm-config-action@v2
@@ -39,4 +34,10 @@ jobs:
         run: dart analyze --fatal-infos
 
       - name: Run tests
-        run: flutter test --test-randomize-ordering-seed=random
+        run: flutter test --test-randomize-ordering-seed=random --coverage
+
+      - name: Check test coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v3
+        with:
+          path: './coverage/lcov.info'
+          min_coverage: 100

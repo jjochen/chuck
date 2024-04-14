@@ -16,7 +16,7 @@ class JokeDetailPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => JokeCubit(
         getRandomJokeUseCase: getRandomJoke,
-      ),
+      )..getRandomJoke(),
       child: const JokeDetailPageContent(),
     );
   }
@@ -29,8 +29,6 @@ class JokeDetailPageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<JokeCubit>().getRandomJoke();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cuck Norris Jokes'),
@@ -49,9 +47,11 @@ class JokeDetailPageContent extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
               );
             } else if (state is JokeError) {
-              return Text(
-                'Error loading joke!',
-                style: Theme.of(context).textTheme.bodyMedium,
+              return Center(
+                child: Text(
+                  state.message,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
               );
             } else {
               return const Center(

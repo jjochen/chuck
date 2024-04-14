@@ -5,17 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class JokeDetailPage extends StatelessWidget {
   const JokeDetailPage({
-    required this.getRandomJoke,
     super.key,
   });
-
-  final GetRandomJoke getRandomJoke;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => JokeCubit(
-        getRandomJokeUseCase: getRandomJoke,
+        getRandomJokeUseCase: context.read<GetRandomJoke>(),
       )..getRandomJoke(),
       child: const JokeDetailPageContent(),
     );

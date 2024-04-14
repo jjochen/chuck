@@ -25,7 +25,10 @@ void main() {
 
     testWidgets('should render joke detail page content',
         (WidgetTester tester) async {
-      final widget = JokeDetailPage(getRandomJoke: getRandomJoke);
+      final widget = RepositoryProvider(
+        create: (context) => getRandomJoke,
+        child: JokeDetailPage(),
+      );
 
       await tester.pumpMaterialApp(widget);
 
@@ -34,7 +37,10 @@ void main() {
 
     testWidgets('should call getRandomJoke when created',
         (WidgetTester tester) async {
-      final widget = JokeDetailPage(getRandomJoke: getRandomJoke);
+      final widget = RepositoryProvider(
+        create: (context) => getRandomJoke,
+        child: JokeDetailPage(),
+      );
 
       await tester.pumpMaterialApp(widget);
 

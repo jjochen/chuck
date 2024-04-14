@@ -1,9 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Dart
+name: Flutter
 
 on:
   push:
@@ -39,4 +34,13 @@ jobs:
         run: dart analyze --fatal-infos
 
       - name: Run tests
-        run: flutter test --test-randomize-ordering-seed=random
+        run: flutter test --test-randomize-ordering-seed=random --coverage
+
+      - name: Check test coverage
+        run: |
+          COVERAGE_THRESHOLD=100
+          COVERAGE_REPORT=$(cat coverage/lcov.info | grep -oP '^DA:' | wc -l)
+          if [[ $COVERAGE_REPORT -lt $COVERAGE_THRESHOLD ]]; then
+            echo "Test coverage is below the threshold of $COVERAGE_THRESHOLD%"
+            exit 1
+          fi

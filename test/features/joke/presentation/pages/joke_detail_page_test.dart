@@ -20,6 +20,7 @@ void main() {
 
     setUp(() {
       getRandomJoke = MockGetRandomJoke();
+      when(() => getRandomJoke()).thenAnswer((_) async => testJokeResult);
     });
 
     testWidgets('should render joke detail page content',
@@ -30,6 +31,15 @@ void main() {
 
       expect(find.byType(JokeDetailPageContent), findsOneWidget);
     });
+
+    testWidgets('should call getRandomJoke when created',
+        (WidgetTester tester) async {
+      final widget = JokeDetailPage(getRandomJoke: getRandomJoke);
+
+      await tester.pumpMaterialApp(widget);
+
+      verify(getRandomJoke.call).called(1);
+    });
   });
 
   group('JokeDetailPageContent', () {
@@ -37,6 +47,7 @@ void main() {
 
     setUp(() {
       jokeCubit = MockJokeCubit();
+      when(() => jokeCubit.getRandomJoke()).thenAnswer((_) async => testJoke);
     });
 
     Widget buildFrame() {
@@ -50,14 +61,11 @@ void main() {
         (WidgetTester tester) async {
       whenListen(
         jokeCubit,
-        Stream.fromIterable(
-          [
-            JokeLoading(),
-          ],
-        ),
+        Stream.fromIterable([
+          JokeLoading(),
+        ]),
         initialState: const JokeInitial(),
       );
-
       final widget = buildFrame();
       await tester.pumpMaterialApp(widget);
       await tester.pump();
@@ -83,6 +91,27 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text(testJoke.value), findsOneWidget);
+    });
+
+    testWidgets('should render error message when state is JokeError',
+        (WidgetTester tester) async {
+      const errorMessage = 'Error!!!';
+      whenListen(
+        jokeCubit,
+        Stream.fromIterable(
+          [
+            JokeLoading(),
+            JokeError(errorMessage),
+          ],
+        ),
+        initialState: const JokeInitial(),
+      );
+
+      final widget = buildFrame();
+      await tester.pumpMaterialApp(widget);
+      await tester.pumpAndSettle();
+
+      expect(find.text(errorMessage), findsOneWidget);
     });
 
     testWidgets(

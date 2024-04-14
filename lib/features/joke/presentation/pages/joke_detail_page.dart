@@ -16,7 +16,7 @@ class JokeDetailPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => JokeCubit(
         getRandomJokeUseCase: getRandomJoke,
-      ),
+      )..getRandomJoke(),
       child: const JokeDetailPageContent(),
     );
   }
@@ -32,31 +32,37 @@ class JokeDetailPageContent extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cuck Norris Jokes'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: BlocBuilder<JokeCubit, JokeState>(
-        builder: (context, state) {
-          if (state is JokeLoaded) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    state.joke.value,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                ],
-              ),
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 24,
+          vertical: 48,
+        ),
+        child: BlocBuilder<JokeCubit, JokeState>(
+          builder: (context, state) {
+            if (state is JokeLoaded) {
+              return Text(
+                state.joke.value,
+                style: Theme.of(context).textTheme.bodyLarge,
+              );
+            } else if (state is JokeError) {
+              return Center(
+                child: Text(
+                  state.message,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.read<JokeCubit>().getRandomJoke();
-        },
+        onPressed: () => context.read<JokeCubit>().getRandomJoke(),
         tooltip: 'refresh',
         child: const Icon(Icons.refresh),
       ),

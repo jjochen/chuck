@@ -10,10 +10,10 @@ class JokeModel extends Joke {
 
   factory JokeModel.fromJson(Map<String, dynamic> json) {
     return JokeModel(
-      iconUrl: json['icon_url'],
-      id: json['id'],
-      url: json['url'],
-      value: json['value'],
+      iconUrl: json['icon_url'] as String,
+      id: json['id'] as String,
+      url: json['url'] as String,
+      value: json['value'] as String,
     );
   }
 

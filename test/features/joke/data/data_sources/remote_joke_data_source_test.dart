@@ -17,7 +17,7 @@ void main() {
     });
 
     test('should return a joke on success', () async {
-      when(() => dio.get(any())).thenAnswer(
+      when(() => dio.get<Map<String, dynamic>>(any())).thenAnswer(
         (_) async => Response(
           data: {
             'icon_url': 'iconUrl',
@@ -38,7 +38,7 @@ void main() {
     });
 
     test('should return a server failure on failure', () async {
-      when(() => dio.get(any())).thenThrow(Exception());
+      when(() => dio.get<Map<String, dynamic>>(any())).thenThrow(Exception());
       // Act
       final result = await dataSource.getRandomJoke();
 

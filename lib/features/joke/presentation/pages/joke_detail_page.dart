@@ -11,8 +11,9 @@ class JokeDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          JokeCubit(getRandomJokeUseCase: getIt())..getRandomJoke(),
+      create:
+          (context) =>
+              JokeCubit(getRandomJokeUseCase: getIt())..getRandomJoke(),
       child: const JokeDetailPageContent(),
     );
   }

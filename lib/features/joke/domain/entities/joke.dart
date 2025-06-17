@@ -15,9 +15,9 @@ class Joke extends Equatable {
 
   @override
   List<Object?> get props => [
-        iconUrl,
-        id,
-        url,
-        value,
-      ];
+    iconUrl,
+    id,
+    url,
+    value,
+  ];
 }

@@ -1,3 +1,4 @@
+// Const constructors cause problems when testing widget constructors
 // ignore_for_file: prefer_const_constructors
 
 import 'package:bloc_test/bloc_test.dart';

@@ -28,25 +28,28 @@ void main() {
         },
         build: () => jokeCubit,
         act: (cubit) => cubit.getRandomJoke(),
-        expect: () => const [
-          JokeLoading(),
-          JokeLoaded(testJoke),
-        ],
+        expect:
+            () => const [
+              JokeLoading(),
+              JokeLoaded(testJoke),
+            ],
         verify: (bloc) => verify(() => getRandomJoke()).called(1),
       );
 
       blocTest<JokeCubit, JokeState>(
         'emits [JokeLoading, JokeError] when GetRandomJoke fails',
         setUp: () {
-          when(() => getRandomJoke())
-              .thenAnswer((_) async => testExceptionResult);
+          when(
+            () => getRandomJoke(),
+          ).thenAnswer((_) async => testExceptionResult);
         },
         build: () => jokeCubit,
         act: (cubit) => cubit.getRandomJoke(),
-        expect: () => <Matcher>[
-          isA<JokeLoading>(),
-          isA<JokeError>(),
-        ],
+        expect:
+            () => <Matcher>[
+              isA<JokeLoading>(),
+              isA<JokeError>(),
+            ],
       );
     });
   });

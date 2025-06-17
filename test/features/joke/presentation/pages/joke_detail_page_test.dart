@@ -26,8 +26,9 @@ void main() {
       GetIt.instance.reset();
     });
 
-    testWidgets('should render joke detail page content',
-        (WidgetTester tester) async {
+    testWidgets('should render joke detail page content', (
+      WidgetTester tester,
+    ) async {
       final widget = JokeDetailPage();
 
       await tester.pumpMaterialApp(widget);
@@ -35,8 +36,9 @@ void main() {
       expect(find.byType(JokeDetailPageContent), findsOneWidget);
     });
 
-    testWidgets('should call getRandomJoke when created',
-        (WidgetTester tester) async {
+    testWidgets('should call getRandomJoke when created', (
+      WidgetTester tester,
+    ) async {
       final widget = JokeDetailPage();
 
       await tester.pumpMaterialApp(widget);
@@ -60,8 +62,9 @@ void main() {
       );
     }
 
-    testWidgets('should render loading when state is JokeLoading',
-        (WidgetTester tester) async {
+    testWidgets('should render loading when state is JokeLoading', (
+      WidgetTester tester,
+    ) async {
       whenListen(
         jokeCubit,
         Stream.fromIterable([
@@ -76,8 +79,9 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('should render joke when state is JokeLoaded',
-        (WidgetTester tester) async {
+    testWidgets('should render joke when state is JokeLoaded', (
+      WidgetTester tester,
+    ) async {
       whenListen(
         jokeCubit,
         Stream.fromIterable(
@@ -96,8 +100,9 @@ void main() {
       expect(find.text(testJoke.value), findsOneWidget);
     });
 
-    testWidgets('should render error message when state is JokeError',
-        (WidgetTester tester) async {
+    testWidgets('should render error message when state is JokeError', (
+      WidgetTester tester,
+    ) async {
       const errorMessage = 'Error!!!';
       whenListen(
         jokeCubit,
@@ -118,26 +123,27 @@ void main() {
     });
 
     testWidgets(
-        'should call getRandomJoke when floatingActionButton is pressed',
-        (WidgetTester tester) async {
-      whenListen(
-        jokeCubit,
-        Stream.fromIterable(
-          [
-            JokeLoading(),
-            JokeLoaded(testJoke),
-          ],
-        ),
-        initialState: const JokeInitial(),
-      );
-      when(() => jokeCubit.getRandomJoke()).thenAnswer((_) async => testJoke);
+      'should call getRandomJoke when floatingActionButton is pressed',
+      (WidgetTester tester) async {
+        whenListen(
+          jokeCubit,
+          Stream.fromIterable(
+            [
+              JokeLoading(),
+              JokeLoaded(testJoke),
+            ],
+          ),
+          initialState: const JokeInitial(),
+        );
+        when(() => jokeCubit.getRandomJoke()).thenAnswer((_) async => testJoke);
 
-      final widget = buildFrame();
-      await tester.pumpMaterialApp(widget);
-      await tester.pumpAndSettle();
+        final widget = buildFrame();
+        await tester.pumpMaterialApp(widget);
+        await tester.pumpAndSettle();
 
-      await tester.tap(find.byType(FloatingActionButton));
-      verify(() => jokeCubit.getRandomJoke()).called(1);
-    });
+        await tester.tap(find.byType(FloatingActionButton));
+        verify(() => jokeCubit.getRandomJoke()).called(1);
+      },
+    );
   });
 }

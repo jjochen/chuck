@@ -8,7 +8,7 @@ class Result<Type> {
   const Result.success(Type value) : this._(isSuccess: true, value: value);
 
   const Result.failure(Exception exception)
-      : this._(isSuccess: false, exception: exception);
+    : this._(isSuccess: false, exception: exception);
 
   final Exception? exception;
   final bool isSuccess;

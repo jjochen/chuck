@@ -1,5 +1,7 @@
+import 'package:chuck/core/error_handling/result.dart';
 import 'package:chuck/features/joke/data/repositories/joke_repository_impl.dart';
 import 'package:chuck/features/joke/data/sources/remote_joke_data_source.dart';
+import 'package:chuck/features/joke/domain/entities/joke.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -24,7 +26,9 @@ void main() {
       );
 
       final result = await jokeRepository.getRandomJoke();
-      expect(result.value, testJoke);
+      expect(result, isA<Success<Joke>>());
+      final success = result as Success<Joke>;
+      expect(success.value, testJoke);
     });
   });
 }

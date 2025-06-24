@@ -16,5 +16,5 @@ const testJokeDto = JokeDto(
   value: 'value',
 );
 
-const testJokeResult = Result<Joke>.success(testJoke);
-final testExceptionResult = Result<Joke>.failure(Exception('error message'));
+const testJokeResult = Success<Joke>(testJoke);
+final testExceptionResult = Failure<Joke>(Exception('error message'));

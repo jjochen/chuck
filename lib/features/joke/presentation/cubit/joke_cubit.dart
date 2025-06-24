@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:chuck/core/error_handling/result.dart';
 import 'package:chuck/features/joke/domain/domain.dart';
 import 'package:equatable/equatable.dart';
 
@@ -11,16 +12,16 @@ class JokeCubit extends Cubit<JokeState> {
   Future<void> getRandomJoke() async {
     emit(const JokeLoading());
     final result = await getRandomJokeUseCase();
-    final joke = result.value;
-    if (result.isSuccess && joke != null) {
-      emit(JokeLoaded(joke));
-    } else {
-      emit(
-        const JokeError(
-          'Oops! The connection was kicked out by Chuck Norris.\n'
-          'Try reconnecting!',
-        ),
-      );
+    switch (result) {
+      case Success<Joke>(value: final joke):
+        emit(JokeLoaded(joke));
+      case Failure<Joke>():
+        emit(
+          const JokeError(
+            'Oops! The connection was kicked out by Chuck Norris.\n'
+            'Try reconnecting!',
+          ),
+        );
     }
   }
 }

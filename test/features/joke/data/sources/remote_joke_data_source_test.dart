@@ -1,3 +1,4 @@
+import 'package:chuck/core/error_handling/result.dart';
 import 'package:chuck/features/joke/data/data.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -32,9 +33,9 @@ void main() {
       final result = await dataSource.getRandomJoke();
 
       // Assert
-      expect(result.isSuccess, isTrue);
-      expect(result.value, testJokeDto);
-      expect(result.exception, isNull);
+      expect(result, isA<Success<JokeDto>>());
+      final success = result as Success<JokeDto>;
+      expect(success.value, testJokeDto);
     });
 
     test('should return a server failure on failure', () async {
@@ -43,9 +44,9 @@ void main() {
       final result = await dataSource.getRandomJoke();
 
       // Assert
-      expect(result.isSuccess, isFalse);
-      expect(result.value, isNull);
-      expect(result.exception, isA<Exception>());
+      expect(result, isA<Failure<JokeDto>>());
+      final failure = result as Failure<JokeDto>;
+      expect(failure.exception, isA<Exception>());
     });
 
     test('should return a failure when data is null', () async {
@@ -61,9 +62,9 @@ void main() {
       final result = await dataSource.getRandomJoke();
 
       // Assert
-      expect(result.isSuccess, isFalse);
-      expect(result.value, isNull);
-      expect(result.exception, isA<Exception>());
+      expect(result, isA<Failure<JokeDto>>());
+      final failure = result as Failure<JokeDto>;
+      expect(failure.exception, isA<Exception>());
     });
 
     test('should return a failure on incomplete data', () async {
@@ -82,9 +83,9 @@ void main() {
       final result = await dataSource.getRandomJoke();
 
       // Assert
-      expect(result.isSuccess, isFalse);
-      expect(result.value, isNull);
-      expect(result.exception, isA<FormatException>());
+      expect(result, isA<Failure<JokeDto>>());
+      final failure = result as Failure<JokeDto>;
+      expect(failure.exception, isA<FormatException>());
     });
   });
 }

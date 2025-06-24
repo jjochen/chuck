@@ -15,7 +15,7 @@ class RemoteJokeDataSourceImpl implements RemoteJokeDataSource {
   final Dio dio;
 
   @override
-  Future<Result<JokeModel>> getRandomJoke() async {
+  Future<Result<JokeDto>> getRandomJoke() async {
     try {
       final response = await dio.get<Map<String, dynamic>>(
         'https://api.chucknorris.io/jokes/random',
@@ -24,7 +24,7 @@ class RemoteJokeDataSourceImpl implements RemoteJokeDataSource {
       if (data == null) {
         throw Exception('No data received');
       }
-      final joke = JokeModel.fromJson(data);
+      final joke = JokeDto.fromJson(data);
       return Result.success(joke);
     } on Exception catch (exception) {
       return Result.failure(exception);

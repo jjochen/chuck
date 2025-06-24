@@ -1,21 +1,21 @@
-import 'package:chuck/features/joke/data/models/joke_model.dart';
+import 'package:chuck/features/joke/data/dtos/joke_dto.dart';
 import 'package:chuck/features/joke/domain/domain.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('JokeModel', () {
     test('should be an instance of JokeModel', () {
-      const jokeModel = JokeModel(
+      const jokeModel = JokeDto(
         iconUrl: 'iconUrl',
         id: 'id',
         url: 'url',
         value: 'value',
       );
-      expect(jokeModel, isA<JokeModel>());
+      expect(jokeModel, isA<JokeDto>());
     });
 
     test('should be a subclass of Joke', () {
-      const jokeModel = JokeModel(
+      const jokeModel = JokeDto(
         iconUrl: 'iconUrl',
         id: 'id',
         url: 'url',
@@ -25,13 +25,13 @@ void main() {
     });
 
     test('should be able to convert from json', () {
-      final jokeModel = JokeModel.fromJson(const {
+      final jokeModel = JokeDto.fromJson(const {
         'icon_url': 'iconUrl',
         'id': 'id',
         'url': 'url',
         'value': 'value',
       });
-      expect(jokeModel, isA<JokeModel>());
+      expect(jokeModel, isA<JokeDto>());
       expect(jokeModel.iconUrl, 'iconUrl');
       expect(jokeModel.id, 'id');
       expect(jokeModel.url, 'url');
@@ -39,7 +39,7 @@ void main() {
     });
 
     test('should be able to convert to json', () {
-      const jokeModel = JokeModel(
+      const jokeModel = JokeDto(
         iconUrl: 'iconUrl',
         id: 'id',
         url: 'url',

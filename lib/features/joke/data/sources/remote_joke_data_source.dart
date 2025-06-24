@@ -20,7 +20,11 @@ class RemoteJokeDataSourceImpl implements RemoteJokeDataSource {
       final response = await dio.get<Map<String, dynamic>>(
         'https://api.chucknorris.io/jokes/random',
       );
-      final joke = JokeModel.fromJson(response.data!);
+      final data = response.data;
+      if (data == null) {
+        throw Exception('No data received');
+      }
+      final joke = JokeModel.fromJson(data);
       return Result.success(joke);
     } on Exception catch (exception) {
       return Result.failure(exception);

@@ -1,15 +1,15 @@
 import 'package:chuck/features/joke/domain/entities/joke.dart';
 
-class JokeModel extends Joke {
-  const JokeModel({
+class JokeDto extends Joke {
+  const JokeDto({
     required super.iconUrl,
     required super.id,
     required super.url,
     required super.value,
   });
 
-  factory JokeModel.fromJson(Map<String, dynamic> json) {
-    return JokeModel(
+  factory JokeDto.fromJson(Map<String, dynamic> json) {
+    return JokeDto(
       iconUrl: json['icon_url'] as String,
       id: json['id'] as String,
       url: json['url'] as String,

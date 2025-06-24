@@ -33,12 +33,30 @@ void main() {
 
       // Assert
       expect(result.isSuccess, isTrue);
-      expect(result.value, testJokeModel);
+      expect(result.value, testJokeDto);
       expect(result.exception, isNull);
     });
 
     test('should return a server failure on failure', () async {
       when(() => dio.get<Map<String, dynamic>>(any())).thenThrow(Exception());
+      // Act
+      final result = await dataSource.getRandomJoke();
+
+      // Assert
+      expect(result.isSuccess, isFalse);
+      expect(result.value, isNull);
+      expect(result.exception, isA<Exception>());
+    });
+
+    test('should return a failure when data is null', () async {
+      when(() => dio.get<Map<String, dynamic>>(any())).thenAnswer(
+        (_) async => Response(
+          // allow redundant argument values because for clearer test
+          // ignore: avoid_redundant_argument_values
+          data: null,
+          requestOptions: RequestOptions(),
+        ),
+      );
       // Act
       final result = await dataSource.getRandomJoke();
 

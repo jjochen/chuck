@@ -1,5 +1,5 @@
-import 'package:chuck/features/joke/data/data_sources/remote_joke_data_source.dart';
 import 'package:chuck/features/joke/data/repositories/joke_repository_impl.dart';
+import 'package:chuck/features/joke/data/sources/remote_joke_data_source.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

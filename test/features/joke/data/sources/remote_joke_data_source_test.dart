@@ -51,7 +51,7 @@ void main() {
     test('should return a failure when data is null', () async {
       when(() => dio.get<Map<String, dynamic>>(any())).thenAnswer(
         (_) async => Response(
-          // allow redundant argument values because for clearer test
+          // allow redundant argument values for better test readability
           // ignore: avoid_redundant_argument_values
           data: null,
           requestOptions: RequestOptions(),
@@ -64,6 +64,27 @@ void main() {
       expect(result.isSuccess, isFalse);
       expect(result.value, isNull);
       expect(result.exception, isA<Exception>());
+    });
+
+    test('should return a failure on incomplete data', () async {
+      when(() => dio.get<Map<String, dynamic>>(any())).thenAnswer(
+        (_) async => Response(
+          data: {
+            'icon_url': 'iconUrl',
+            'id': 'id',
+            'url': 'url',
+          },
+          requestOptions: RequestOptions(),
+        ),
+      );
+
+      // Act
+      final result = await dataSource.getRandomJoke();
+
+      // Assert
+      expect(result.isSuccess, isFalse);
+      expect(result.value, isNull);
+      expect(result.exception, isA<FormatException>());
     });
   });
 }

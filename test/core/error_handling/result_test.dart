@@ -4,18 +4,14 @@ import 'package:test/test.dart';
 void main() {
   group('Result', () {
     test('should create a successful result', () {
-      const result = Result<int>.success(42);
-
-      expect(result.isSuccess, isTrue);
+      const result = Success<int>(42);
+      expect(result, isA<Success<int>>());
       expect(result.value, 42);
-      expect(result.exception, isNull);
     });
 
     test('should create a failure result', () {
-      final result = Result<int>.failure(Exception('error message'));
-
-      expect(result.isSuccess, isFalse);
-      expect(result.value, isNull);
+      final result = Failure<int>(Exception('error message'));
+      expect(result, isA<Failure<int>>());
       expect(result.exception, isA<Exception>());
     });
   });

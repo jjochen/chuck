@@ -25,9 +25,9 @@ class RemoteJokeDataSourceImpl implements RemoteJokeDataSource {
         throw Exception('No data received');
       }
       final joke = JokeDto.fromJson(data);
-      return Result.success(joke);
+      return Success(joke);
     } on Exception catch (exception) {
-      return Result.failure(exception);
+      return Failure(exception);
     }
   }
 }

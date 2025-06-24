@@ -33,7 +33,7 @@ void main() {
 
       // Assert
       expect(result.isSuccess, isTrue);
-      expect(result.value, testJokeModel);
+      expect(result.value, testJokeDto);
       expect(result.exception, isNull);
     });
 

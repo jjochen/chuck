@@ -9,7 +9,7 @@ const testJoke = Joke(
   value: 'value',
 );
 
-const testJokeModel = JokeDto(
+const testJokeDto = JokeDto(
   iconUrl: 'iconUrl',
   id: 'id',
   url: 'url',

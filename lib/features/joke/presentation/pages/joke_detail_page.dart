@@ -38,23 +38,25 @@ class JokeDetailPageContent extends StatelessWidget {
         ),
         child: BlocBuilder<JokeCubit, JokeState>(
           builder: (context, state) {
-            if (state is JokeLoaded) {
-              return Text(
-                state.joke.value,
-                style: Theme.of(context).textTheme.bodyLarge,
-              );
-            } else if (state is JokeError) {
-              return Center(
-                child: Text(
-                  state.message,
+            switch (state) {
+              case JokeInitial():
+              case JokeLoading():
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              case JokeLoaded():
+                return Text(
+                  state.joke.value,
                   style: Theme.of(context).textTheme.bodyLarge,
-                  textAlign: TextAlign.center,
-                ),
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+                );
+              case JokeError():
+                return Center(
+                  child: Text(
+                    state.message,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                );
             }
           },
         ),

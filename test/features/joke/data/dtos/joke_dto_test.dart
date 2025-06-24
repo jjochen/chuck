@@ -52,5 +52,49 @@ void main() {
       expect(json['url'], 'url');
       expect(json['value'], 'value');
     });
+
+    test('should throw an exception when icon url is missing', () {
+      expect(
+        () => JokeDto.fromJson(const {
+          'id': 'id',
+          'url': 'url',
+          'value': 'value',
+        }),
+        throwsA(isA<FormatException>()),
+      );
+    });
+
+    test('should throw an exception when id is missing', () {
+      expect(
+        () => JokeDto.fromJson(const {
+          'icon_url': 'iconUrl',
+          'url': 'url',
+          'value': 'value',
+        }),
+        throwsA(isA<FormatException>()),
+      );
+    });
+
+    test('should throw an exception when url is missing', () {
+      expect(
+        () => JokeDto.fromJson(const {
+          'icon_url': 'iconUrl',
+          'id': 'id',
+          'value': 'value',
+        }),
+        throwsA(isA<FormatException>()),
+      );
+    });
+
+    test('should throw an exception when value is missing', () {
+      expect(
+        () => JokeDto.fromJson(const {
+          'icon_url': 'iconUrl',
+          'id': 'id',
+          'url': 'url',
+        }),
+        throwsA(isA<FormatException>()),
+      );
+    });
   });
 }

@@ -1,3 +1,4 @@
+import 'package:chuck/core/core.dart';
 import 'package:chuck/features/joke/domain/entities/joke.dart';
 
 class JokeDto extends Joke {
@@ -10,10 +11,10 @@ class JokeDto extends Joke {
 
   factory JokeDto.fromJson(Map<String, dynamic> json) {
     return JokeDto(
-      iconUrl: json['icon_url'] as String,
-      id: json['id'] as String,
-      url: json['url'] as String,
-      value: json['value'] as String,
+      iconUrl: json.get<String>('icon_url'),
+      id: json.get<String>('id'),
+      url: json.get<String>('url'),
+      value: json.get<String>('value'),
     );
   }
 

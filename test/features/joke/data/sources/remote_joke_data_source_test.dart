@@ -47,5 +47,23 @@ void main() {
       expect(result.value, isNull);
       expect(result.exception, isA<Exception>());
     });
+
+    test('should return a failure when data is null', () async {
+      when(() => dio.get<Map<String, dynamic>>(any())).thenAnswer(
+        (_) async => Response(
+          // allow redundant argument values because for clearer test
+          // ignore: avoid_redundant_argument_values
+          data: null,
+          requestOptions: RequestOptions(),
+        ),
+      );
+      // Act
+      final result = await dataSource.getRandomJoke();
+
+      // Assert
+      expect(result.isSuccess, isFalse);
+      expect(result.value, isNull);
+      expect(result.exception, isA<Exception>());
+    });
   });
 }

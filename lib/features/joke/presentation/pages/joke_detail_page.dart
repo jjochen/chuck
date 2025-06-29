@@ -28,7 +28,7 @@ class JokeDetailPageContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cuck Norris Jokes'),
+        title: const Text('Chuck Norris Jokes'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(

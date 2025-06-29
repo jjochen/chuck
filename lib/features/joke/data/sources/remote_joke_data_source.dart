@@ -1,30 +1,21 @@
 import 'package:chuck/core/core.dart';
-import 'package:chuck/features/joke/data/data.dart';
-import 'package:chuck/features/joke/domain/domain.dart';
-import 'package:dio/dio.dart';
+import 'package:chuck/features/joke/joke.dart';
+
+export 'joke_api.dart';
 
 abstract class RemoteJokeDataSource {
   Future<Result<Joke>> getRandomJoke();
 }
 
 class RemoteJokeDataSourceImpl implements RemoteJokeDataSource {
-  const RemoteJokeDataSourceImpl({
-    required this.dio,
-  });
+  const RemoteJokeDataSourceImpl({required this.api});
 
-  final Dio dio;
+  final JokeApi api;
 
   @override
   Future<Result<JokeDto>> getRandomJoke() async {
     try {
-      final response = await dio.get<Map<String, dynamic>>(
-        'https://api.chucknorris.io/jokes/random',
-      );
-      final data = response.data;
-      if (data == null) {
-        throw Exception('No data received');
-      }
-      final joke = JokeDto.fromJson(data);
+      final joke = await api.getRandomJoke();
       return Success(joke);
     } on Exception catch (exception) {
       return Failure(exception);

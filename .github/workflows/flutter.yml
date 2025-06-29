@@ -42,3 +42,4 @@ jobs:
         with:
           path: './coverage/lcov.info'
           min_coverage: 100
+          exclude: '**/*.g.dart'

@@ -10,8 +10,11 @@ class ServiceLocator {
       ..registerLazySingleton<Dio>(
         Dio.new,
       )
+      ..registerLazySingleton<JokeApi>(
+        () => JokeApi(getIt()),
+      )
       ..registerLazySingleton<RemoteJokeDataSource>(
-        () => RemoteJokeDataSourceImpl(dio: getIt()),
+        () => RemoteJokeDataSourceImpl(api: getIt()),
       )
       ..registerLazySingleton<JokeRepository>(
         () => JokeRepositoryImpl(remoteJokeDataSource: getIt()),

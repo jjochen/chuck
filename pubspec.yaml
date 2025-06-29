@@ -18,12 +18,16 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   get_it: any
+  retrofit: any
 
 dev_dependencies:
   bloc_test: any
+  build_runner: any
   flutter_test:
     sdk: flutter
+  http_mock_adapter: any
   mocktail: any
+  retrofit_generator: any
   test: any
   very_good_analysis: any
 

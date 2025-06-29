@@ -12,3 +12,5 @@ class MockJokeRepository extends Mock implements JokeRepository {}
 class MockGetRandomJoke extends Mock implements GetRandomJoke {}
 
 class MockJokeCubit extends MockCubit<JokeState> implements JokeCubit {}
+
+class MockJokeApi extends Mock implements JokeApi {}

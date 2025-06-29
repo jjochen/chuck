@@ -64,7 +64,10 @@ class JokeDetailPageContent extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.read<JokeCubit>().getRandomJoke(),
         tooltip: 'refresh',
-        child: const Icon(Icons.refresh),
+        child: const Icon(
+          Icons.refresh,
+          semanticLabel: 'Refresh joke',
+        ),
       ),
     );
   }

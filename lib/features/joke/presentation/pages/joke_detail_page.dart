@@ -45,9 +45,13 @@ class JokeDetailPageContent extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               case JokeLoaded():
-                return Text(
-                  state.joke.value,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                return Semantics(
+                  liveRegion: true,
+                  label: state.joke.value,
+                  child: Text(
+                    state.joke.value,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
                 );
               case JokeError():
                 return Center(

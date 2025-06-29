@@ -28,7 +28,7 @@ class JokeDetailPageContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cuck Norris Jokes'),
+        title: const Text('Chuck Norris Jokes'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
@@ -45,9 +45,13 @@ class JokeDetailPageContent extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               case JokeLoaded():
-                return Text(
-                  state.joke.value,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                return Semantics(
+                  liveRegion: true,
+                  label: state.joke.value,
+                  child: Text(
+                    state.joke.value,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
                 );
               case JokeError():
                 return Center(
@@ -64,7 +68,10 @@ class JokeDetailPageContent extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.read<JokeCubit>().getRandomJoke(),
         tooltip: 'refresh',
-        child: const Icon(Icons.refresh),
+        child: const Icon(
+          Icons.refresh,
+          semanticLabel: 'Refresh joke',
+        ),
       ),
     );
   }

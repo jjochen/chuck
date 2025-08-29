@@ -1,7 +1,7 @@
 import 'package:chuck/core/error_handling/error_handling.dart';
 
-abstract class UseCase<Type> {
+abstract class UseCase<T> {
   const UseCase();
 
-  Future<Result<Type>> call();
+  Future<Result<T>> call();
 }

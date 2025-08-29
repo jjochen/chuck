@@ -1,3 +1,6 @@
+// const constructors cause problems with code coverage
+// ignore_for_file: prefer_const_constructors
+
 import 'package:chuck/app/chuck_app.dart';
 import 'package:chuck/features/joke/joke.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -18,7 +21,7 @@ void main() {
     });
 
     testWidgets('should render JokeDetailPage', (WidgetTester tester) async {
-      await tester.pumpWidget(const ChuckApp());
+      await tester.pumpWidget(ChuckApp());
 
       expect(find.byType(JokeDetailPage), findsOneWidget);
     });

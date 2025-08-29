@@ -11,9 +11,8 @@ class JokeDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:
-          (context) =>
-              JokeCubit(getRandomJokeUseCase: getIt())..getRandomJoke(),
+      create: (context) =>
+          JokeCubit(getRandomJokeUseCase: getIt())..getRandomJoke(),
       child: const JokeDetailPageContent(),
     );
   }
@@ -38,30 +37,26 @@ class JokeDetailPageContent extends StatelessWidget {
         ),
         child: BlocBuilder<JokeCubit, JokeState>(
           builder: (context, state) {
-            switch (state) {
-              case JokeInitial():
-              case JokeLoading():
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              case JokeLoaded():
-                return Semantics(
-                  liveRegion: true,
-                  label: state.joke.value,
-                  child: Text(
-                    state.joke.value,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                );
-              case JokeError():
-                return Center(
-                  child: Text(
-                    state.message,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                );
-            }
+            return switch (state) {
+              JokeInitial() || JokeLoading() => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              JokeLoaded(:final joke) => Semantics(
+                liveRegion: true,
+                label: joke.value,
+                child: Text(
+                  joke.value,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ),
+              JokeError(:final message) => Center(
+                child: Text(
+                  message,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            };
           },
         ),
       ),

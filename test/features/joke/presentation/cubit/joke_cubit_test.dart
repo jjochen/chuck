@@ -28,11 +28,10 @@ void main() {
         },
         build: () => jokeCubit,
         act: (cubit) => cubit.getRandomJoke(),
-        expect:
-            () => const [
-              JokeLoading(),
-              JokeLoaded(testJoke),
-            ],
+        expect: () => const [
+          JokeLoading(),
+          JokeLoaded(testJoke),
+        ],
         verify: (bloc) => verify(() => getRandomJoke()).called(1),
       );
 
@@ -45,11 +44,10 @@ void main() {
         },
         build: () => jokeCubit,
         act: (cubit) => cubit.getRandomJoke(),
-        expect:
-            () => <Matcher>[
-              isA<JokeLoading>(),
-              isA<JokeError>(),
-            ],
+        expect: () => <Matcher>[
+          isA<JokeLoading>(),
+          isA<JokeError>(),
+        ],
       );
     });
   });

@@ -6,15 +6,10 @@ part of 'joke_api.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// generated code
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
 class _JokeApi implements JokeApi {
-  _JokeApi(
-    this._dio, {
-    this.baseUrl,
-    this.errorLogger,
-  }) {
+  _JokeApi(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'https://api.chucknorris.io';
   }
 
@@ -31,23 +26,14 @@ class _JokeApi implements JokeApi {
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<JokeDto>(
-      Options(
-            method: 'GET',
-            headers: _headers,
-            extra: _extra,
-          )
+      Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
             '/jokes/random',
             queryParameters: queryParameters,
             data: _data,
           )
-          .copyWith(
-            baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ),
-          ),
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late JokeDto _value;
@@ -73,10 +59,7 @@ class _JokeApi implements JokeApi {
     return requestOptions;
   }
 
-  String _combineBaseUrls(
-    String dioBaseUrl,
-    String? baseUrl,
-  ) {
+  String _combineBaseUrls(String dioBaseUrl, String? baseUrl) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }

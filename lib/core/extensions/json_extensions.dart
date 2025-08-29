@@ -6,10 +6,8 @@ extension JsonMap on Map<String, dynamic> {
     throw FormatException('Key $key not found in $this');
   }
 
-  T? getOrNull<T>(String key) {
-    if (this[key] is T) {
-      return this[key] as T;
-    }
-    return null;
-  }
+  T? getOrNull<T>(String key) => switch (this[key]) {
+    final T value => value,
+    _ => null,
+  };
 }
